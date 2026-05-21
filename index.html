@@ -1,0 +1,3043 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KGS IT Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&family=Noto+Serif+Lao:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-dark: #163958;
+  --primary-light: #2E75B6;
+  --accent: #C9A961;
+  --accent-dark: #A88838;
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface-2: #FAFAF7;
+  --border: #E3DFD4;
+  --border-strong: #C9C3B2;
+  --text: #1A1A1A;
+  --text-muted: #6B6357;
+  --success: #2D6A4F;
+  --success-bg: #D8F0DE;
+  --warning: #B4730A;
+  --warning-bg: #FCEFC7;
+  --danger: #A41E1E;
+  --danger-bg: #F8D7D7;
+  --info: #1F4E79;
+  --info-bg: #DEEBF7;
+  --shadow-sm: 0 1px 2px rgba(22, 57, 88, 0.06);
+  --shadow: 0 4px 12px rgba(22, 57, 88, 0.08);
+  --shadow-lg: 0 12px 32px rgba(22, 57, 88, 0.12);
+  --radius: 6px;
+  --radius-lg: 10px;
+  --font-lao: 'Noto Sans Lao', 'Phetsarath OT', sans-serif;
+  --font-serif: 'Noto Serif Lao', 'Phetsarath OT', serif;
+  --font-en: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-lao);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ============= LOGIN SCREEN ============= */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at top left, rgba(31, 78, 121, 0.08), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(201, 169, 97, 0.08), transparent 50%),
+    var(--bg);
+  padding: 24px;
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+}
+
+.login-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 32px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.login-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.login-logo-mark {
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.login-logo-text {
+  text-align: left;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.login-body {
+  padding: 32px;
+}
+
+.login-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+}
+
+.login-hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: all 0.15s ease;
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.1);
+}
+
+.field textarea {
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn:active { transform: translateY(0); }
+
+.btn-block { width: 100%; }
+.btn-secondary { background: var(--surface); color: var(--primary); border-color: var(--border-strong); }
+.btn-secondary:hover { background: var(--surface-2); border-color: var(--primary); }
+.btn-accent { background: var(--accent); color: var(--primary-dark); }
+.btn-accent:hover { background: var(--accent-dark); color: white; }
+.btn-danger { background: var(--danger); }
+.btn-danger:hover { background: #8a1818; }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-icon { padding: 8px; }
+
+.login-mode-toggle {
+  display: flex;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+.login-mode-toggle button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.login-mode-toggle button.active {
+  background: var(--surface);
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.login-footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 32px;
+  background: var(--surface-2);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--font-en);
+  letter-spacing: 0.5px;
+}
+
+.error-msg {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--danger);
+}
+
+.info-msg {
+  background: var(--info-bg);
+  color: var(--info);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--info);
+}
+
+/* ============= APP LAYOUT ============= */
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--primary-dark);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-header {
+  padding: 20px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.sidebar-brand {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sidebar-brand-sub {
+  font-size: 11px;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+  font-family: var(--font-en);
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 8px;
+}
+
+.sidebar-section {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 14px 12px 6px;
+  font-family: var(--font-en);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  margin-bottom: 1px;
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+.nav-item.active {
+  background: rgba(201, 169, 97, 0.15);
+  color: white;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--accent);
+  color: var(--primary-dark);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 8px;
+  font-family: var(--font-en);
+}
+
+.sidebar-footer {
+  padding: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-role {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+/* ============= MAIN CONTENT ============= */
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: var(--font-en);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-top: 2px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box {
+  position: relative;
+  width: 280px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-size: 13px;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  opacity: 0.5;
+}
+
+.content {
+  flex: 1;
+  padding: 28px;
+  overflow: auto;
+}
+
+/* ============= DASHBOARD ============= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--border-strong);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary);
+}
+
+.stat-card.success::before { background: var(--success); }
+.stat-card.warning::before { background: var(--warning); }
+.stat-card.danger::before { background: var(--danger); }
+.stat-card.accent::before { background: var(--accent); }
+
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-family: var(--font-en);
+}
+
+.stat-value {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 6px 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.stat-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+.activity-list {
+  list-style: none;
+}
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.activity-dot.success { background: var(--success); }
+.activity-dot.warning { background: var(--warning); }
+.activity-dot.danger { background: var(--danger); }
+
+.activity-body {
+  flex: 1;
+  font-size: 13px;
+}
+
+.activity-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-family: var(--font-en);
+}
+
+/* ============= MODULE PAGES ============= */
+.module-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.module-filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 7px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 13px;
+  min-width: 140px;
+}
+
+.module-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============= TABLE ============= */
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table-scroll { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead {
+  background: var(--surface-2);
+}
+
+th {
+  text-align: left;
+  padding: 11px 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+  font-family: var(--font-en);
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover { background: var(--surface-2); }
+
+.row-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.action-btn:hover {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  color: var(--primary);
+}
+
+.action-btn.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+/* ============= STATUS BADGES ============= */
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.badge.active, .badge.complete, .badge.approved, .badge.resolved { background: var(--success-bg); color: var(--success); }
+.badge.pending, .badge.in-progress { background: var(--warning-bg); color: var(--warning); }
+.badge.critical, .badge.rejected, .badge.expired { background: var(--danger-bg); color: var(--danger); }
+.badge.info, .badge.new { background: var(--info-bg); color: var(--info); }
+.badge.draft, .badge.inactive { background: #EEE9DC; color: var(--text-muted); }
+
+/* ============= EMPTY STATE ============= */
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+.empty-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+/* ============= MODAL ============= */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 57, 88, 0.4);
+  backdrop-filter: blur(2px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.2s ease;
+}
+
+.modal.wide { max-width: 880px; }
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: var(--surface-2);
+  color: var(--danger);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: var(--surface-2);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-grid .field.full { grid-column: 1 / -1; }
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .field.full { grid-column: 1; }
+}
+
+.section-divider {
+  grid-column: 1 / -1;
+  padding-top: 4px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-top: 4px;
+}
+
+/* ============= TOAST ============= */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--success);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  min-width: 260px;
+  max-width: 400px;
+  animation: slideInRight 0.2s ease;
+  font-size: 13px;
+}
+
+.toast.error { border-left-color: var(--danger); }
+.toast.warning { border-left-color: var(--warning); }
+.toast.info { border-left-color: var(--info); }
+
+.toast-title { font-weight: 600; margin-bottom: 2px; }
+.toast-msg { color: var(--text-muted); font-size: 12px; }
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============= SCROLLBAR ============= */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ============= UTILITIES ============= */
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 12px; }
+.text-xs { font-size: 11px; }
+.fw-600 { font-weight: 600; }
+.mono { font-family: var(--font-en); letter-spacing: 0.3px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+
+/* ============= DETAIL VIEW ============= */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.detail-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-family: var(--font-en);
+}
+
+.detail-value {
+  font-size: 14px;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* ============= SETUP BANNER ============= */
+.setup-banner {
+  background: var(--warning-bg);
+  border-bottom: 1px solid #E9C46A;
+  color: var(--warning);
+  padding: 10px 28px;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.setup-banner a {
+  color: var(--warning);
+  text-decoration: underline;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo">
+        <div class="login-logo-mark">K</div>
+        <div class="login-logo-text">
+          KGS<br>
+          <span class="login-subtitle">IT MANAGEMENT</span>
+        </div>
+      </div>
+    </div>
+    <div class="login-body">
+      <div class="login-title">ເຂົ້າສູ່ລະບົບ</div>
+      <div class="login-hint">Khammany General Service — ລະບົບຄຸ້ມຄອງ IT</div>
+
+      <div class="login-mode-toggle">
+        <button id="modeLocal" class="active" onclick="setLoginMode('local')">ໂໝດທົດລອງ</button>
+        <button id="modeFirebase" onclick="setLoginMode('firebase')">Firebase</button>
+      </div>
+
+      <div id="loginError"></div>
+      <div id="loginInfo" class="info-msg" style="display:none">
+        <strong>ໂໝດທົດລອງ:</strong> ຂໍ້ມູນເກັບໄວ້ໃນ browser ນີ້ເທົ່ານັ້ນ. ສຳລັບໃຊ້ງານຈິງ, ກະລຸນາຕັ້ງຄ່າ Firebase ໃນ <code>firebase-config.js</code>
+      </div>
+
+      <div class="field">
+        <label>ອີເມວ / Email</label>
+        <input type="email" id="loginEmail" placeholder="user@kgs.la" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>ລະຫັດຜ່ານ / Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+      </div>
+
+      <button class="btn btn-block" onclick="handleLogin()">ເຂົ້າສູ່ລະບົບ</button>
+
+      <div style="margin-top:14px; text-align:center; font-size:12px;" class="text-muted">
+        ຍັງບໍ່ມີບັນຊີ? <a href="#" onclick="event.preventDefault(); handleSignup()" style="color:var(--primary); font-weight:600">ສ້າງບັນຊີໃໝ່</a>
+      </div>
+    </div>
+    <div class="login-footer">
+      KGS IT SYSTEM · v1.0 · ISO 9001 / 14001 / 45001
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="appScreen" class="app" style="display:none">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">K</div>
+      <div>
+        <div class="sidebar-brand">KGS IT</div>
+        <div class="sidebar-brand-sub">MANAGEMENT SYSTEM</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <div class="user-avatar" id="userAvatar">U</div>
+      <div class="user-info">
+        <div class="user-name" id="userName">User</div>
+        <div class="user-role" id="userRole">Employee</div>
+      </div>
+      <button class="logout-btn" onclick="logout()" title="ອອກຈາກລະບົບ">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div id="setupBanner" class="setup-banner" style="display:none">
+      <div>
+        <strong>⚠ ໂໝດທົດລອງ</strong> — ຂໍ້ມູນຖືກເກັບໄວ້ໃນ browser ນີ້ເທົ່ານັ້ນ. ສຳລັບໃຊ້ງານຫຼາຍຄົນ ກະລຸນາຕັ້ງຄ່າ Firebase.
+      </div>
+      <button class="btn btn-sm btn-secondary" onclick="document.getElementById('setupBanner').style.display='none'">×</button>
+    </div>
+    <header class="topbar">
+      <div>
+        <div class="breadcrumb" id="breadcrumb">KGS IT / DASHBOARD</div>
+        <div class="page-title" id="pageTitle">ໜ້າຫຼັກ</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="globalSearch" placeholder="ຄົ້ນຫາ...">
+        </div>
+        <button class="btn btn-sm" id="topbarAction" style="display:none"></button>
+      </div>
+    </header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Modal</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter">
+      <button class="btn btn-secondary" onclick="closeModal()">ຍົກເລີກ</button>
+      <button class="btn" id="modalConfirm">ບັນທຶກ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Firebase config (user fills in) -->
+<script src="firebase-config.js"></script>
+
+<!-- App logic -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getDatabase, ref, set, get, push, update, remove, onValue, child, query, orderByChild
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// =================== STATE ===================
+const state = {
+  mode: 'local',         // 'local' or 'firebase'
+  user: null,
+  currentModule: 'dashboard',
+  firebase: { app: null, auth: null, db: null },
+  data: {}  // in-memory cache when in local mode
+};
+
+// =================== STORAGE ABSTRACTION ===================
+const storage = {
+  async getAll(node) {
+    if (state.mode === 'firebase') {
+      const snap = await get(ref(state.firebase.db, node));
+      const v = snap.val() || {};
+      return Object.entries(v).map(([id, data]) => ({ id, ...data }));
+    } else {
+      const data = JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+      return Object.entries(data).map(([id, d]) => ({ id, ...d }));
+    }
+  },
+  async getOne(node, id) {
+    if (state.mode === 'firebase') {
+      const snap = await get(ref(state.firebase.db, `${node}/${id}`));
+      return snap.val();
+    } else {
+      const data = JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+      return data[id];
+    }
+  },
+  async create(node, data) {
+    const id = state.mode === 'firebase'
+      ? push(ref(state.firebase.db, node)).key
+      : 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    const fullData = {
+      ...data,
+      created_at: new Date().toISOString(),
+      created_by: state.user?.email || 'system'
+    };
+    if (state.mode === 'firebase') {
+      await set(ref(state.firebase.db, `${node}/${id}`), fullData);
+    } else {
+      const all = JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+      all[id] = fullData;
+      localStorage.setItem('kgs_' + node, JSON.stringify(all));
+    }
+    await logAudit('create', node, id, data.title || data.name || data.code || id);
+    return id;
+  },
+  async update(node, id, data) {
+    const fullData = {
+      ...data,
+      updated_at: new Date().toISOString(),
+      updated_by: state.user?.email || 'system'
+    };
+    if (state.mode === 'firebase') {
+      await update(ref(state.firebase.db, `${node}/${id}`), fullData);
+    } else {
+      const all = JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+      all[id] = { ...all[id], ...fullData };
+      localStorage.setItem('kgs_' + node, JSON.stringify(all));
+    }
+    await logAudit('update', node, id, data.title || data.name || data.code || id);
+  },
+  async delete(node, id) {
+    const item = await this.getOne(node, id);
+    if (state.mode === 'firebase') {
+      await remove(ref(state.firebase.db, `${node}/${id}`));
+    } else {
+      const all = JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+      delete all[id];
+      localStorage.setItem('kgs_' + node, JSON.stringify(all));
+    }
+    await logAudit('delete', node, id, item?.title || item?.name || item?.code || id);
+  },
+  async exportAll() {
+    const nodes = ['users','assets','maintenance','licenses','incidents','access_requests','change_requests','it_requests','ewaste_requests','files','audit_log'];
+    const data = {};
+    for (const node of nodes) {
+      data[node] = state.mode === 'firebase'
+        ? (await get(ref(state.firebase.db, node))).val() || {}
+        : JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+    }
+    return data;
+  },
+  async importAll(data) {
+    for (const [node, content] of Object.entries(data)) {
+      if (state.mode === 'firebase') {
+        await set(ref(state.firebase.db, node), content);
+      } else {
+        localStorage.setItem('kgs_' + node, JSON.stringify(content || {}));
+      }
+    }
+  }
+};
+
+async function logAudit(action, node, id, label) {
+  const entry = {
+    action, node, target_id: id, label,
+    user: state.user?.email || 'system',
+    timestamp: new Date().toISOString()
+  };
+  if (state.mode === 'firebase') {
+    const auditRef = push(ref(state.firebase.db, 'audit_log'));
+    await set(auditRef, entry);
+  } else {
+    const all = JSON.parse(localStorage.getItem('kgs_audit_log') || '{}');
+    all['L' + Date.now().toString(36) + Math.random().toString(36).slice(2,6)] = entry;
+    localStorage.setItem('kgs_audit_log', JSON.stringify(all));
+  }
+}
+
+// =================== AUTH ===================
+window.setLoginMode = function(mode) {
+  state.mode = mode;
+  document.getElementById('modeLocal').classList.toggle('active', mode === 'local');
+  document.getElementById('modeFirebase').classList.toggle('active', mode === 'firebase');
+  document.getElementById('loginInfo').style.display = mode === 'local' ? 'block' : 'none';
+  if (mode === 'firebase' && !window.firebaseConfig?.apiKey) {
+    showLoginError('ກະລຸນາຕັ້ງຄ່າ Firebase ໃນ firebase-config.js ກ່ອນ');
+  } else {
+    clearLoginError();
+  }
+};
+
+function showLoginError(msg) {
+  document.getElementById('loginError').innerHTML = `<div class="error-msg">${msg}</div>`;
+}
+function clearLoginError() {
+  document.getElementById('loginError').innerHTML = '';
+}
+
+window.handleLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!email || !password) { showLoginError('ກະລຸນາໃສ່ອີເມວ ແລະ ລະຫັດຜ່ານ'); return; }
+
+  if (state.mode === 'firebase') {
+    try {
+      initFirebase();
+      await signInWithEmailAndPassword(state.firebase.auth, email, password);
+    } catch (e) {
+      showLoginError('ເຂົ້າສູ່ລະບົບບໍ່ສຳເລັດ: ' + (e.code || e.message));
+    }
+  } else {
+    // local mode - check users in localStorage
+    const users = JSON.parse(localStorage.getItem('kgs_local_users') || '{}');
+    const user = users[email];
+    if (!user || user.password !== password) {
+      showLoginError('ອີເມວ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ');
+      return;
+    }
+    state.user = { email, displayName: user.displayName || email.split('@')[0], role: user.role || 'employee' };
+    enterApp();
+  }
+};
+
+window.handleSignup = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!email || !password) { showLoginError('ກະລຸນາໃສ່ອີເມວ ແລະ ລະຫັດຜ່ານ'); return; }
+  if (password.length < 6) { showLoginError('ລະຫັດຜ່ານຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວ'); return; }
+
+  if (state.mode === 'firebase') {
+    try {
+      initFirebase();
+      await createUserWithEmailAndPassword(state.firebase.auth, email, password);
+      showToast('ສ້າງບັນຊີສຳເລັດ', 'ກຳລັງເຂົ້າສູ່ລະບົບ...', 'success');
+    } catch (e) {
+      showLoginError('ສ້າງບັນຊີບໍ່ສຳເລັດ: ' + (e.code || e.message));
+    }
+  } else {
+    const users = JSON.parse(localStorage.getItem('kgs_local_users') || '{}');
+    if (users[email]) { showLoginError('ບັນຊີນີ້ມີຢູ່ແລ້ວ'); return; }
+    const isFirst = Object.keys(users).length === 0;
+    users[email] = {
+      password,
+      displayName: email.split('@')[0],
+      role: isFirst ? 'admin' : 'employee',
+      created_at: new Date().toISOString()
+    };
+    localStorage.setItem('kgs_local_users', JSON.stringify(users));
+    state.user = { email, displayName: users[email].displayName, role: users[email].role };
+    showToast('ສ້າງບັນຊີສຳເລັດ', isFirst ? 'ທ່ານເປັນ Admin ຄົນທຳອິດ' : 'ຍິນດີຕ້ອນຮັບ', 'success');
+    enterApp();
+  }
+};
+
+function initFirebase() {
+  if (state.firebase.app) return;
+  if (!window.firebaseConfig?.apiKey) throw new Error('Firebase config missing');
+  state.firebase.app = initializeApp(window.firebaseConfig);
+  state.firebase.auth = getAuth(state.firebase.app);
+  state.firebase.db = getDatabase(state.firebase.app);
+
+  onAuthStateChanged(state.firebase.auth, async (user) => {
+    if (user) {
+      // load user profile from db
+      const profSnap = await get(ref(state.firebase.db, `users/${user.uid}`));
+      const profile = profSnap.val() || {};
+      if (!profile.email) {
+        // create initial profile
+        const usersSnap = await get(ref(state.firebase.db, 'users'));
+        const isFirst = !usersSnap.val();
+        await set(ref(state.firebase.db, `users/${user.uid}`), {
+          email: user.email,
+          displayName: user.displayName || user.email.split('@')[0],
+          role: isFirst ? 'admin' : 'employee',
+          created_at: new Date().toISOString()
+        });
+        state.user = { uid: user.uid, email: user.email, displayName: user.email.split('@')[0], role: isFirst ? 'admin' : 'employee' };
+      } else {
+        state.user = { uid: user.uid, ...profile };
+      }
+      enterApp();
+    }
+  });
+}
+
+window.logout = async function() {
+  if (state.mode === 'firebase' && state.firebase.auth) {
+    await signOut(state.firebase.auth);
+  }
+  state.user = null;
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+};
+
+function enterApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'grid';
+  document.getElementById('userName').textContent = state.user.displayName || state.user.email;
+  document.getElementById('userRole').textContent = roleLabel(state.user.role);
+  document.getElementById('userAvatar').textContent = (state.user.displayName || state.user.email)[0].toUpperCase();
+  document.getElementById('setupBanner').style.display = state.mode === 'local' ? 'flex' : 'none';
+  renderSidebar();
+  navigate('dashboard');
+}
+
+function roleLabel(role) {
+  return { admin: 'Administrator', it_manager: 'IT Manager', it_staff: 'IT Staff', employee: 'Employee' }[role] || role;
+}
+
+// =================== NAVIGATION ===================
+const MODULES = [
+  { id: 'dashboard', label: 'ໜ້າຫຼັກ', en: 'Dashboard', icon: 'home', section: 'OVERVIEW' },
+  { id: 'assets', label: 'ຄຸ້ມຄອງຊັບສິນ', en: 'Asset Management', icon: 'box', section: 'OPERATIONS' },
+  { id: 'maintenance', label: 'ບັນທຶກບຳລຸງຮັກສາ', en: 'Maintenance Log', icon: 'tool', section: 'OPERATIONS' },
+  { id: 'licenses', label: 'License Software', en: 'Software License', icon: 'key', section: 'OPERATIONS' },
+  { id: 'incidents', label: 'ລາຍງານເຫດການ', en: 'Incidents', icon: 'alert', section: 'REQUESTS' },
+  { id: 'access_requests', label: 'ຂໍສິດເຂົ້າໃຊ້', en: 'Access Requests', icon: 'lock', section: 'REQUESTS' },
+  { id: 'change_requests', label: 'ຂໍປ່ຽນແປງ', en: 'Change Requests', icon: 'refresh', section: 'REQUESTS' },
+  { id: 'it_requests', label: 'ຂໍບໍລິການ IT', en: 'IT Requests', icon: 'inbox', section: 'REQUESTS' },
+  { id: 'ewaste_requests', label: 'ກຳຈັດ E-waste', en: 'E-waste Disposal', icon: 'trash', section: 'REQUESTS' },
+  { id: 'documents', label: 'ເອກະສານ IMS', en: 'Document Library', icon: 'folder', section: 'GOVERNANCE' },
+  { id: 'audit', label: 'Audit Log', en: 'Audit Trail', icon: 'shield', section: 'GOVERNANCE' },
+  { id: 'users', label: 'ຜູ້ໃຊ້ລະບົບ', en: 'Users & Roles', icon: 'users', section: 'GOVERNANCE', adminOnly: true },
+  { id: 'backup', label: 'ສຳຮອງ & ກູ້ຄືນ', en: 'Backup & Restore', icon: 'database', section: 'GOVERNANCE' }
+];
+
+const ICONS = {
+  home: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  box: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+  tool: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  key: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>',
+  alert: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.29 3.86-8.18 14.14a2 2 0 0 0 1.71 3h16.36a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  lock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  refresh: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
+  inbox: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>',
+  trash: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  folder: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  shield: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  users: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  database: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>'
+};
+
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  const sections = {};
+  for (const m of MODULES) {
+    if (m.adminOnly && state.user.role !== 'admin') continue;
+    if (!sections[m.section]) sections[m.section] = [];
+    sections[m.section].push(m);
+  }
+  nav.innerHTML = Object.entries(sections).map(([section, items]) => `
+    <div class="sidebar-section">${section}</div>
+    ${items.map(m => `
+      <div class="nav-item ${state.currentModule === m.id ? 'active' : ''}" data-module="${m.id}" onclick="navigate('${m.id}')">
+        <span class="nav-icon">${ICONS[m.icon] || ''}</span>
+        <span>${m.label}</span>
+        <span class="nav-badge" id="badge-${m.id}" style="display:none"></span>
+      </div>
+    `).join('')}
+  `).join('');
+  refreshBadges();
+}
+
+window.navigate = function(moduleId) {
+  state.currentModule = moduleId;
+  const mod = MODULES.find(m => m.id === moduleId);
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.module === moduleId);
+  });
+  document.getElementById('breadcrumb').textContent = `KGS IT / ${(mod?.en || '').toUpperCase()}`;
+  document.getElementById('pageTitle').textContent = mod?.label || '';
+  document.getElementById('globalSearch').value = '';
+  renderModule(moduleId);
+};
+
+async function refreshBadges() {
+  try {
+    const incidents = await storage.getAll('incidents');
+    const pendingIncidents = incidents.filter(i => ['new','in-progress'].includes(i.status)).length;
+    setBadge('incidents', pendingIncidents);
+
+    const accReqs = await storage.getAll('access_requests');
+    setBadge('access_requests', accReqs.filter(r => r.status === 'pending').length);
+
+    const chgReqs = await storage.getAll('change_requests');
+    setBadge('change_requests', chgReqs.filter(r => r.status === 'pending').length);
+
+    const itReqs = await storage.getAll('it_requests');
+    setBadge('it_requests', itReqs.filter(r => r.status === 'pending').length);
+
+    const ewReqs = await storage.getAll('ewaste_requests');
+    setBadge('ewaste_requests', ewReqs.filter(r => r.status === 'pending').length);
+  } catch (e) { /* ignore */ }
+}
+
+function setBadge(id, count) {
+  const el = document.getElementById('badge-' + id);
+  if (!el) return;
+  if (count > 0) {
+    el.textContent = count;
+    el.style.display = 'inline-block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+// =================== MODULE RENDERER ===================
+async function renderModule(id) {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="empty"><div class="empty-icon">⏳</div><div>ກຳລັງໂຫຼດ...</div></div>';
+  try {
+    switch (id) {
+      case 'dashboard': await renderDashboard(); break;
+      case 'assets': await renderAssets(); break;
+      case 'maintenance': await renderMaintenance(); break;
+      case 'licenses': await renderLicenses(); break;
+      case 'incidents': await renderIncidents(); break;
+      case 'access_requests': await renderAccessRequests(); break;
+      case 'change_requests': await renderChangeRequests(); break;
+      case 'it_requests': await renderITRequests(); break;
+      case 'ewaste_requests': await renderEwasteRequests(); break;
+      case 'documents': await renderDocuments(); break;
+      case 'audit': await renderAudit(); break;
+      case 'users': await renderUsers(); break;
+      case 'backup': await renderBackup(); break;
+      default: content.innerHTML = '<div class="empty">Module not found</div>';
+    }
+    refreshBadges();
+  } catch (e) {
+    console.error(e);
+    content.innerHTML = `<div class="error-msg">ຜິດພາດ: ${e.message}</div>`;
+  }
+}
+
+// =================== DASHBOARD ===================
+async function renderDashboard() {
+  const content = document.getElementById('content');
+  const [assets, incidents, accReqs, itReqs, licenses, ewReqs] = await Promise.all([
+    storage.getAll('assets'),
+    storage.getAll('incidents'),
+    storage.getAll('access_requests'),
+    storage.getAll('it_requests'),
+    storage.getAll('licenses'),
+    storage.getAll('ewaste_requests')
+  ]);
+
+  const activeAssets = assets.filter(a => a.status === 'active').length;
+  const openIncidents = incidents.filter(i => ['new','in-progress'].includes(i.status)).length;
+  const criticalIncidents = incidents.filter(i => i.severity === 'critical' && ['new','in-progress'].includes(i.status)).length;
+  const pendingRequests = accReqs.filter(r => r.status === 'pending').length
+                       + itReqs.filter(r => r.status === 'pending').length
+                       + ewReqs.filter(r => r.status === 'pending').length;
+
+  const expiringSoon = licenses.filter(l => {
+    if (!l.expiry_date) return false;
+    const d = new Date(l.expiry_date);
+    const diff = (d - Date.now()) / (1000*60*60*24);
+    return diff > 0 && diff < 60;
+  }).length;
+
+  // recent activity
+  const auditLog = await storage.getAll('audit_log');
+  const recentActivity = auditLog
+    .sort((a,b) => (b.timestamp || '').localeCompare(a.timestamp || ''))
+    .slice(0, 10);
+
+  content.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card" onclick="navigate('assets')" style="cursor:pointer">
+        <div class="stat-label">ຊັບສິນທີ່ໃຊ້ງານ</div>
+        <div class="stat-value">${activeAssets}</div>
+        <div class="stat-meta">ທັງໝົດ ${assets.length} ລາຍການ</div>
+      </div>
+      <div class="stat-card ${openIncidents > 0 ? 'warning' : 'success'}" onclick="navigate('incidents')" style="cursor:pointer">
+        <div class="stat-label">ເຫດການເປີດ</div>
+        <div class="stat-value">${openIncidents}</div>
+        <div class="stat-meta">${criticalIncidents} ຮ້າຍແຮງ</div>
+      </div>
+      <div class="stat-card ${pendingRequests > 0 ? 'warning' : ''}">
+        <div class="stat-label">ຄຳຂໍລໍຖ້າອະນຸມັດ</div>
+        <div class="stat-value">${pendingRequests}</div>
+        <div class="stat-meta">Access · IT · E-waste</div>
+      </div>
+      <div class="stat-card accent" onclick="navigate('licenses')" style="cursor:pointer">
+        <div class="stat-label">License ໃກ້ໝົດອາຍຸ</div>
+        <div class="stat-value">${expiringSoon}</div>
+        <div class="stat-meta">ໃນ 60 ວັນຂ້າງໜ້າ</div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">ສະຫຼຸບສະຖານະຊັບສິນ</div>
+        </div>
+        <div class="panel-body">
+          ${renderAssetSummary(assets)}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">ກິດຈະກຳຫຼ້າສຸດ</div>
+        </div>
+        <div class="panel-body">
+          ${recentActivity.length === 0 ? '<div class="text-muted text-sm">ຍັງບໍ່ມີກິດຈະກຳ</div>' : `
+            <ul class="activity-list">
+              ${recentActivity.map(a => `
+                <li class="activity-item">
+                  <div class="activity-dot ${actionColor(a.action)}"></div>
+                  <div class="activity-body">
+                    <div><strong>${a.user}</strong> ${actionLabel(a.action)} <span class="text-muted">${nodeLabel(a.node)}</span></div>
+                    <div class="activity-time">${formatRelativeTime(a.timestamp)}</div>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+          `}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-4">
+      <div class="panel-header">
+        <div class="panel-title">IMS ສະຖານະການປະຕິບັດງານ</div>
+      </div>
+      <div class="panel-body">
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">ISO 9001 — Quality</div>
+            <div class="detail-value"><span class="badge active">ສອດຄ່ອງ</span> ${assets.length} assets tracked</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">ISO 14001 — Environment</div>
+            <div class="detail-value"><span class="badge active">ສອດຄ່ອງ</span> ${ewReqs.filter(r => r.status === 'complete').length} e-waste processed</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">ISO 45001 — Safety</div>
+            <div class="detail-value"><span class="badge active">ສອດຄ່ອງ</span> 0 incidents</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Backup ຫຼ້າສຸດ</div>
+            <div class="detail-value mono text-sm">${state.mode === 'local' ? 'localStorage (manual)' : 'Auto · 02:00 ICT'}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('topbarAction').style.display = 'none';
+}
+
+function renderAssetSummary(assets) {
+  if (assets.length === 0) return '<div class="empty" style="padding:20px"><div>ຍັງບໍ່ມີຊັບສິນ. <a href="#" onclick="event.preventDefault(); navigate(\'assets\')" style="color:var(--primary)">ເພີ່ມຊັບສິນທຳອິດ</a></div></div>';
+
+  const byCategory = {};
+  for (const a of assets) {
+    const cat = a.category || 'ອື່ນໆ';
+    byCategory[cat] = (byCategory[cat] || 0) + 1;
+  }
+  const total = assets.length;
+  return `
+    <div style="display:flex; flex-direction:column; gap:10px">
+      ${Object.entries(byCategory).map(([cat, count]) => {
+        const pct = Math.round((count / total) * 100);
+        return `
+          <div>
+            <div class="flex items-center" style="justify-content:space-between; margin-bottom:4px">
+              <span class="text-sm fw-600">${cat}</span>
+              <span class="text-sm text-muted">${count} (${pct}%)</span>
+            </div>
+            <div style="height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden">
+              <div style="height:100%; width:${pct}%; background:linear-gradient(90deg, var(--primary), var(--primary-light)); border-radius:3px"></div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function actionColor(action) {
+  return { create: 'success', update: 'warning', delete: 'danger' }[action] || '';
+}
+function actionLabel(action) {
+  return { create: 'ສ້າງ', update: 'ແກ້ໄຂ', delete: 'ລຶບ' }[action] || action;
+}
+function nodeLabel(node) {
+  return { assets: 'ຊັບສິນ', incidents: 'ເຫດການ', licenses: 'License', access_requests: 'Access Request', change_requests: 'Change Request', it_requests: 'IT Request', ewaste_requests: 'E-waste', maintenance: 'Maintenance', users: 'User' }[node] || node;
+}
+
+function formatRelativeTime(ts) {
+  if (!ts) return '';
+  const diff = (Date.now() - new Date(ts).getTime()) / 1000;
+  if (diff < 60) return `${Math.floor(diff)}s ago`;
+  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+  return new Date(ts).toLocaleDateString();
+}
+
+// =================== ASSETS ===================
+async function renderAssets() {
+  const items = await storage.getAll('assets');
+  setTopbarAction('+ ເພີ່ມຊັບສິນ', () => openAssetForm());
+  renderListPage({
+    items,
+    searchFields: ['asset_code','name','category','assigned_to','serial_number','location'],
+    filters: [
+      { key: 'category', label: 'ປະເພດ', options: ['Hardware','Software','Network','Peripheral','Mobile'] },
+      { key: 'status', label: 'ສະຖານະ', options: [['active','ໃຊ້ງານ'],['storage','ເກັບຮັກສາ'],['repair','ສ້ອມແປງ'],['retired','ປົດລະວາງ']] }
+    ],
+    columns: [
+      { key: 'asset_code', label: 'Code', render: (v) => `<span class="mono fw-600">${v}</span>` },
+      { key: 'name', label: 'ຊື່ຊັບສິນ' },
+      { key: 'category', label: 'ປະເພດ' },
+      { key: 'serial_number', label: 'Serial', render: v => v ? `<span class="mono text-sm">${v}</span>` : '<span class="text-muted">-</span>' },
+      { key: 'assigned_to', label: 'ມອບໝາຍ' },
+      { key: 'location', label: 'ສະຖານທີ່' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openAssetForm(item),
+    onDelete: async (item) => {
+      if (!confirm(`ລຶບຊັບສິນ "${item.name}"?`)) return;
+      await storage.delete('assets', item.id);
+      showToast('ສຳເລັດ', 'ລຶບແລ້ວ', 'success');
+      renderModule('assets');
+    },
+    onView: (item) => showAssetDetail(item),
+    emptyTitle: 'ຍັງບໍ່ມີຊັບສິນ',
+    emptyAction: 'ເພີ່ມຊັບສິນທຳອິດ'
+  });
+}
+
+function statusBadge(status) {
+  const labels = {
+    active: 'ໃຊ້ງານ', storage: 'ເກັບຮັກສາ', repair: 'ສ້ອມແປງ', retired: 'ປົດລະວາງ',
+    pending: 'ລໍຖ້າ', approved: 'ອະນຸມັດ', rejected: 'ປະຕິເສດ', 'in-progress': 'ກຳລັງດຳເນີນ',
+    resolved: 'ແກ້ໄຂແລ້ວ', complete: 'ສຳເລັດ', new: 'ໃໝ່', expired: 'ໝົດອາຍຸ',
+    draft: 'ຮ່າງ', critical: 'ຮ້າຍແຮງ'
+  };
+  return `<span class="badge ${status}">${labels[status] || status}</span>`;
+}
+
+function openAssetForm(item) {
+  const cats = ['Hardware','Software','Network','Peripheral','Mobile'];
+  const statuses = [['active','ໃຊ້ງານ'],['storage','ເກັບຮັກສາ'],['repair','ສ້ອມແປງ'],['retired','ປົດລະວາງ']];
+  openModal({
+    title: item ? `ແກ້ໄຂ: ${item.asset_code}` : 'ເພີ່ມຊັບສິນໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>ລະຫັດຊັບສິນ / Asset Code *</label><input id="f_asset_code" value="${item?.asset_code || nextAssetCode()}" required></div>
+        <div class="field"><label>ປະເພດ / Category *</label>
+          <select id="f_category">${cats.map(c => `<option ${item?.category === c ? 'selected' : ''}>${c}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ຊື່ຊັບສິນ / Name *</label><input id="f_name" value="${item?.name || ''}" required></div>
+        <div class="field"><label>Brand / Model</label><input id="f_brand" value="${item?.brand || ''}"></div>
+        <div class="field"><label>Serial Number</label><input id="f_serial_number" value="${item?.serial_number || ''}"></div>
+        <div class="field"><label>ມອບໝາຍໃຫ້ / Assigned To</label><input id="f_assigned_to" value="${item?.assigned_to || ''}"></div>
+        <div class="field"><label>ສະຖານທີ່ / Location</label><input id="f_location" value="${item?.location || ''}"></div>
+        <div class="field"><label>ວັນທີຊື້ / Purchase Date</label><input type="date" id="f_purchase_date" value="${item?.purchase_date || ''}"></div>
+        <div class="field"><label>ມູນຄ່າ / Value (LAK)</label><input type="number" id="f_value" value="${item?.value || ''}"></div>
+        <div class="field"><label>Warranty ໝົດອາຍຸ</label><input type="date" id="f_warranty_expiry" value="${item?.warranty_expiry || ''}"></div>
+        <div class="field"><label>ສະຖານະ *</label>
+          <select id="f_status">${statuses.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ໝາຍເຫດ / Notes</label><textarea id="f_notes">${item?.notes || ''}</textarea></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['asset_code','category','name','brand','serial_number','assigned_to','location','purchase_date','value','warranty_expiry','status','notes']);
+      if (!data.asset_code || !data.name) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ Code ແລະ ຊື່','error'); return false; }
+      if (item) await storage.update('assets', item.id, data);
+      else await storage.create('assets', data);
+      showToast('ສຳເລັດ', item ? 'ແກ້ໄຂສຳເລັດ' : 'ເພີ່ມສຳເລັດ', 'success');
+      renderModule('assets');
+      return true;
+    }
+  });
+}
+
+async function nextAssetCode() {
+  const items = await storage.getAll('assets');
+  const max = items
+    .map(i => parseInt((i.asset_code || '').match(/\d+/)?.[0] || 0))
+    .reduce((m,v) => Math.max(m, v), 0);
+  return 'IT-H' + String(max + 1).padStart(3, '0');
+}
+// since we use nextAssetCode synchronously in the form, fix:
+function nextAssetCode() {
+  const all = state.mode === 'firebase' ? {} : JSON.parse(localStorage.getItem('kgs_assets') || '{}');
+  const max = Object.values(all)
+    .map(i => parseInt((i.asset_code || '').match(/\d+/)?.[0] || 0))
+    .reduce((m,v) => Math.max(m, v), 0);
+  return 'IT-H' + String(max + 1).padStart(3, '0');
+}
+
+function showAssetDetail(item) {
+  openModal({
+    title: `${item.asset_code} — ${item.name}`,
+    body: `
+      <div class="detail-grid">
+        ${detailItem('Asset Code', item.asset_code, true)}
+        ${detailItem('ປະເພດ', item.category)}
+        ${detailItem('Brand / Model', item.brand)}
+        ${detailItem('Serial Number', item.serial_number, true)}
+        ${detailItem('ມອບໝາຍໃຫ້', item.assigned_to)}
+        ${detailItem('ສະຖານທີ່', item.location)}
+        ${detailItem('ວັນທີຊື້', item.purchase_date)}
+        ${detailItem('ມູນຄ່າ', item.value ? Number(item.value).toLocaleString() + ' LAK' : '')}
+        ${detailItem('Warranty', item.warranty_expiry)}
+        ${detailItem('ສະຖານະ', statusBadge(item.status), true)}
+        ${detailItem('ສ້າງເມື່ອ', item.created_at?.split('T')[0])}
+        ${detailItem('ສ້າງໂດຍ', item.created_by)}
+      </div>
+      ${item.notes ? `<div style="margin-top:16px"><div class="detail-label">ໝາຍເຫດ</div><div class="text-sm" style="white-space:pre-wrap">${item.notes}</div></div>` : ''}
+    `,
+    hideSubmit: true
+  });
+}
+
+function detailItem(label, value, raw=false) {
+  return `<div class="detail-item">
+    <div class="detail-label">${label}</div>
+    <div class="detail-value">${value ? (raw ? value : escapeHtml(value)) : '<span class="text-muted">-</span>'}</div>
+  </div>`;
+}
+
+// =================== MAINTENANCE ===================
+async function renderMaintenance() {
+  const items = await storage.getAll('maintenance');
+  const assets = await storage.getAll('assets');
+  setTopbarAction('+ ບັນທຶກໃໝ່', () => openMaintenanceForm(assets));
+  renderListPage({
+    items,
+    searchFields: ['asset_code','description','performed_by','type'],
+    filters: [
+      { key: 'type', label: 'ປະເພດ', options: ['Preventive','Corrective','Upgrade','Inspection'] },
+      { key: 'status', label: 'ສະຖານະ', options: [['complete','ສຳເລັດ'],['in-progress','ກຳລັງດຳເນີນ'],['pending','ລໍຖ້າ']] }
+    ],
+    columns: [
+      { key: 'date', label: 'ວັນທີ', render: v => `<span class="mono text-sm">${v || ''}</span>` },
+      { key: 'asset_code', label: 'Asset', render: v => `<span class="mono fw-600">${v || ''}</span>` },
+      { key: 'type', label: 'ປະເພດ' },
+      { key: 'description', label: 'ລາຍລະອຽດ', render: v => v ? (v.length > 50 ? v.slice(0,50) + '…' : v) : '' },
+      { key: 'performed_by', label: 'ດຳເນີນໂດຍ' },
+      { key: 'cost', label: 'ຄ່າໃຊ້ຈ່າຍ', render: v => v ? Number(v).toLocaleString() + ' LAK' : '-' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openMaintenanceForm(assets, item),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບບັນທຶກນີ້?')) return;
+      await storage.delete('maintenance', item.id);
+      showToast('ສຳເລັດ','ລຶບແລ້ວ','success');
+      renderModule('maintenance');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີບັນທຶກບຳລຸງຮັກສາ'
+  });
+}
+
+function openMaintenanceForm(assets, item) {
+  const types = ['Preventive','Corrective','Upgrade','Inspection'];
+  const statuses = [['complete','ສຳເລັດ'],['in-progress','ກຳລັງດຳເນີນ'],['pending','ລໍຖ້າ']];
+  openModal({
+    title: item ? 'ແກ້ໄຂບັນທຶກ' : 'ບັນທຶກບຳລຸງຮັກສາໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>ວັນທີ *</label><input type="date" id="f_date" value="${item?.date || new Date().toISOString().slice(0,10)}"></div>
+        <div class="field"><label>ປະເພດ *</label>
+          <select id="f_type">${types.map(t => `<option ${item?.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>Asset Code *</label>
+          <select id="f_asset_code">
+            <option value="">-- ເລືອກ --</option>
+            ${assets.map(a => `<option value="${a.asset_code}" ${item?.asset_code === a.asset_code ? 'selected' : ''}>${a.asset_code} — ${a.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field"><label>ດຳເນີນໂດຍ</label><input id="f_performed_by" value="${item?.performed_by || state.user?.displayName || ''}"></div>
+        <div class="field full"><label>ລາຍລະອຽດ *</label><textarea id="f_description">${item?.description || ''}</textarea></div>
+        <div class="field"><label>ຄ່າໃຊ້ຈ່າຍ (LAK)</label><input type="number" id="f_cost" value="${item?.cost || ''}"></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${statuses.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ບັນທຶກເພີ່ມ / Notes</label><textarea id="f_notes">${item?.notes || ''}</textarea></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['date','type','asset_code','performed_by','description','cost','status','notes']);
+      if (!data.date || !data.description) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('maintenance', item.id, data);
+      else await storage.create('maintenance', data);
+      showToast('ສຳເລັດ', 'ບັນທຶກແລ້ວ','success');
+      renderModule('maintenance');
+      return true;
+    }
+  });
+}
+
+// =================== LICENSES ===================
+async function renderLicenses() {
+  const items = await storage.getAll('licenses');
+  setTopbarAction('+ ເພີ່ມ License', () => openLicenseForm());
+
+  // mark expired/expiring
+  const enriched = items.map(i => {
+    if (!i.expiry_date) return i;
+    const diff = (new Date(i.expiry_date) - Date.now()) / (1000*60*60*24);
+    let computedStatus = i.status;
+    if (diff < 0) computedStatus = 'expired';
+    else if (diff < 60) computedStatus = 'pending';
+    return { ...i, computed_status: computedStatus, days_left: Math.floor(diff) };
+  });
+
+  renderListPage({
+    items: enriched,
+    searchFields: ['software_name','vendor','license_key','license_type'],
+    filters: [
+      { key: 'license_type', label: 'ປະເພດ License', options: ['Subscription','Perpetual','Volume','OEM','Open Source','Trial'] },
+      { key: 'computed_status', label: 'ສະຖານະ', options: [['active','ໃຊ້ງານ'],['pending','ໃກ້ໝົດອາຍຸ'],['expired','ໝົດອາຍຸ']] }
+    ],
+    columns: [
+      { key: 'software_name', label: 'Software', render: v => `<strong>${v || ''}</strong>` },
+      { key: 'vendor', label: 'Vendor' },
+      { key: 'license_type', label: 'ປະເພດ' },
+      { key: 'seats', label: 'Seats', render: (v,r) => r.seats_used != null ? `${r.seats_used}/${v || '-'}` : (v || '-') },
+      { key: 'expiry_date', label: 'ໝົດອາຍຸ', render: (v,r) => {
+        if (!v) return '<span class="text-muted">-</span>';
+        const cls = r.days_left < 0 ? 'expired' : (r.days_left < 60 ? 'pending' : 'active');
+        return `<span class="mono text-sm">${v}</span> ${r.days_left != null ? `<span class="badge ${cls}" style="margin-left:6px">${r.days_left < 0 ? 'ໝົດແລ້ວ' : r.days_left + 'd'}</span>` : ''}`;
+      }},
+      { key: 'cost', label: 'ມູນຄ່າ', render: v => v ? Number(v).toLocaleString() + ' LAK' : '-' }
+    ],
+    onEdit: (item) => openLicenseForm(item),
+    onDelete: async (item) => {
+      if (!confirm(`ລຶບ "${item.software_name}"?`)) return;
+      await storage.delete('licenses', item.id);
+      showToast('ສຳເລັດ','ລຶບແລ້ວ','success');
+      renderModule('licenses');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີ License'
+  });
+}
+
+function openLicenseForm(item) {
+  const types = ['Subscription','Perpetual','Volume','OEM','Open Source','Trial'];
+  const statuses = [['active','ໃຊ້ງານ'],['expired','ໝົດອາຍຸ'],['pending','ໃກ້ໝົດອາຍຸ']];
+  openModal({
+    title: item ? `ແກ້ໄຂ: ${item.software_name}` : 'ເພີ່ມ License ໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Software *</label><input id="f_software_name" value="${item?.software_name || ''}"></div>
+        <div class="field"><label>Vendor</label><input id="f_vendor" value="${item?.vendor || ''}"></div>
+        <div class="field"><label>ປະເພດ *</label>
+          <select id="f_license_type">${types.map(t => `<option ${item?.license_type === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>License Key</label><input id="f_license_key" value="${item?.license_key || ''}"></div>
+        <div class="field"><label>ຈຳນວນ Seats</label><input type="number" id="f_seats" value="${item?.seats || ''}"></div>
+        <div class="field"><label>Seats ໃຊ້ແລ້ວ</label><input type="number" id="f_seats_used" value="${item?.seats_used || ''}"></div>
+        <div class="field"><label>ວັນທີຊື້</label><input type="date" id="f_purchase_date" value="${item?.purchase_date || ''}"></div>
+        <div class="field"><label>ວັນທີໝົດອາຍຸ</label><input type="date" id="f_expiry_date" value="${item?.expiry_date || ''}"></div>
+        <div class="field"><label>ມູນຄ່າ (LAK)</label><input type="number" id="f_cost" value="${item?.cost || ''}"></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${statuses.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ໝາຍເຫດ</label><textarea id="f_notes">${item?.notes || ''}</textarea></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['software_name','vendor','license_type','license_key','seats','seats_used','purchase_date','expiry_date','cost','status','notes']);
+      if (!data.software_name) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຊື່ Software','error'); return false; }
+      if (item) await storage.update('licenses', item.id, data);
+      else await storage.create('licenses', data);
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('licenses');
+      return true;
+    }
+  });
+}
+
+// =================== INCIDENTS ===================
+async function renderIncidents() {
+  const items = await storage.getAll('incidents');
+  setTopbarAction('+ ລາຍງານເຫດການ', () => openIncidentForm());
+  renderListPage({
+    items,
+    searchFields: ['title','description','reported_by','category'],
+    filters: [
+      { key: 'severity', label: 'ຄວາມຮ້າຍແຮງ', options: [['critical','ຮ້າຍແຮງ'],['high','ສູງ'],['medium','ປານກາງ'],['low','ຕ່ຳ']] },
+      { key: 'status', label: 'ສະຖານະ', options: [['new','ໃໝ່'],['in-progress','ກຳລັງດຳເນີນ'],['resolved','ແກ້ໄຂແລ້ວ'],['critical','ປິດ']] }
+    ],
+    columns: [
+      { key: 'incident_no', label: 'ID', render: v => `<span class="mono fw-600">${v}</span>` },
+      { key: 'reported_at', label: 'ວັນທີ', render: v => `<span class="mono text-sm">${v ? v.split('T')[0] : ''}</span>` },
+      { key: 'title', label: 'ຫົວຂໍ້' },
+      { key: 'category', label: 'ປະເພດ' },
+      { key: 'severity', label: 'ຄວາມຮ້າຍແຮງ', render: v => {
+        const lbl = {critical:'ຮ້າຍແຮງ', high:'ສູງ', medium:'ປານກາງ', low:'ຕ່ຳ'}[v] || v;
+        const cls = v === 'critical' || v === 'high' ? 'critical' : (v === 'medium' ? 'pending' : 'info');
+        return `<span class="badge ${cls}">${lbl}</span>`;
+      }},
+      { key: 'reported_by', label: 'ລາຍງານໂດຍ' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openIncidentForm(item),
+    onView: (item) => showIncidentDetail(item),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບເຫດການນີ້?')) return;
+      await storage.delete('incidents', item.id);
+      showToast('ສຳເລັດ','ລຶບແລ້ວ','success');
+      renderModule('incidents');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີລາຍງານເຫດການ'
+  });
+}
+
+function openIncidentForm(item) {
+  const sevs = [['low','ຕ່ຳ'],['medium','ປານກາງ'],['high','ສູງ'],['critical','ຮ້າຍແຮງ']];
+  const stats = [['new','ໃໝ່'],['in-progress','ກຳລັງດຳເນີນ'],['resolved','ແກ້ໄຂແລ້ວ']];
+  const cats = ['Hardware','Software','Network','Security','Email','Access','Other'];
+  openModal({
+    wide: true,
+    title: item ? `ແກ້ໄຂ: ${item.incident_no}` : 'ລາຍງານເຫດການໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Incident No</label><input id="f_incident_no" value="${item?.incident_no || nextIncidentNo()}" ${item ? '' : 'readonly'}></div>
+        <div class="field"><label>ວັນທີລາຍງານ</label><input type="datetime-local" id="f_reported_at" value="${item?.reported_at?.slice(0,16) || new Date().toISOString().slice(0,16)}"></div>
+        <div class="field full"><label>ຫົວຂໍ້ / Title *</label><input id="f_title" value="${item?.title || ''}"></div>
+        <div class="field"><label>ປະເພດ / Category *</label>
+          <select id="f_category">${cats.map(c => `<option ${item?.category === c ? 'selected' : ''}>${c}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ຄວາມຮ້າຍແຮງ *</label>
+          <select id="f_severity">${sevs.map(s => `<option value="${s[0]}" ${item?.severity === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ລາຍງານໂດຍ *</label><input id="f_reported_by" value="${item?.reported_by || state.user?.displayName || ''}"></div>
+        <div class="field"><label>ສະຖານທີ່ / Location</label><input id="f_location" value="${item?.location || ''}"></div>
+        <div class="field"><label>Asset ກ່ຽວຂ້ອງ</label><input id="f_related_asset" value="${item?.related_asset || ''}" placeholder="IT-H001"></div>
+        <div class="field"><label>ມອບໝາຍໃຫ້</label><input id="f_assigned_to" value="${item?.assigned_to || ''}"></div>
+        <div class="field full"><label>ລາຍລະອຽດ *</label><textarea id="f_description" style="min-height:100px">${item?.description || ''}</textarea></div>
+        <div class="field full"><label>ການແກ້ໄຂ / Resolution</label><textarea id="f_resolution">${item?.resolution || ''}</textarea></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${stats.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ວັນທີແກ້ໄຂ</label><input type="date" id="f_resolved_at" value="${item?.resolved_at?.slice(0,10) || ''}"></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['incident_no','reported_at','title','category','severity','reported_by','location','related_asset','assigned_to','description','resolution','status','resolved_at']);
+      if (!data.title || !data.description) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('incidents', item.id, data);
+      else await storage.create('incidents', data);
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('incidents');
+      return true;
+    }
+  });
+}
+
+function nextIncidentNo() {
+  const all = state.mode === 'firebase' ? {} : JSON.parse(localStorage.getItem('kgs_incidents') || '{}');
+  const year = new Date().getFullYear();
+  const max = Object.values(all)
+    .filter(i => (i.incident_no || '').includes(year))
+    .map(i => parseInt((i.incident_no || '').split('-').pop() || 0))
+    .reduce((m,v) => Math.max(m, v), 0);
+  return `INC-${year}-${String(max + 1).padStart(4, '0')}`;
+}
+
+function showIncidentDetail(item) {
+  openModal({
+    wide: true,
+    title: `${item.incident_no} — ${item.title}`,
+    body: `
+      <div class="detail-grid">
+        ${detailItem('ID', item.incident_no, true)}
+        ${detailItem('ປະເພດ', item.category)}
+        ${detailItem('ຄວາມຮ້າຍແຮງ', statusBadge(item.severity), true)}
+        ${detailItem('ສະຖານະ', statusBadge(item.status), true)}
+        ${detailItem('ລາຍງານໂດຍ', item.reported_by)}
+        ${detailItem('ວັນທີລາຍງານ', item.reported_at?.split('T')[0])}
+        ${detailItem('ສະຖານທີ່', item.location)}
+        ${detailItem('Asset', item.related_asset)}
+        ${detailItem('ມອບໝາຍໃຫ້', item.assigned_to)}
+        ${detailItem('ວັນທີແກ້ໄຂ', item.resolved_at)}
+      </div>
+      <div style="margin-top:20px">
+        <div class="detail-label">ລາຍລະອຽດ</div>
+        <div style="white-space:pre-wrap; padding:12px; background:var(--surface-2); border-radius:var(--radius); margin-top:6px">${escapeHtml(item.description || '')}</div>
+      </div>
+      ${item.resolution ? `
+        <div style="margin-top:16px">
+          <div class="detail-label">ການແກ້ໄຂ</div>
+          <div style="white-space:pre-wrap; padding:12px; background:var(--success-bg); border-radius:var(--radius); margin-top:6px">${escapeHtml(item.resolution)}</div>
+        </div>
+      ` : ''}
+    `,
+    hideSubmit: true
+  });
+}
+
+// =================== ACCESS REQUESTS ===================
+async function renderAccessRequests() {
+  const items = await storage.getAll('access_requests');
+  setTopbarAction('+ ຂໍສິດເຂົ້າໃຊ້', () => openAccessRequestForm());
+  renderListPage({
+    items,
+    searchFields: ['requester','system','justification'],
+    filters: [
+      { key: 'access_type', label: 'ປະເພດ', options: ['New','Modify','Revoke'] },
+      { key: 'status', label: 'ສະຖານະ', options: [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['rejected','ປະຕິເສດ'],['complete','ສຳເລັດ']] }
+    ],
+    columns: [
+      { key: 'request_no', label: 'No', render: v => `<span class="mono fw-600">${v}</span>` },
+      { key: 'submitted_at', label: 'ວັນທີ', render: v => v ? v.split('T')[0] : '' },
+      { key: 'requester', label: 'ຜູ້ຮ້ອງຂໍ' },
+      { key: 'system', label: 'ລະບົບ' },
+      { key: 'access_type', label: 'ປະເພດ' },
+      { key: 'access_level', label: 'ລະດັບ' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openAccessRequestForm(item),
+    onView: (item) => showRequestDetail(item, 'Access'),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບຄຳຂໍນີ້?')) return;
+      await storage.delete('access_requests', item.id);
+      renderModule('access_requests');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີຄຳຂໍສິດ'
+  });
+}
+
+function openAccessRequestForm(item) {
+  const types = ['New','Modify','Revoke'];
+  const levels = ['Read','Write','Admin'];
+  const stats = [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['rejected','ປະຕິເສດ'],['complete','ສຳເລັດ']];
+  openModal({
+    wide: true,
+    title: item ? `ແກ້ໄຂ: ${item.request_no}` : 'ຂໍສິດເຂົ້າໃຊ້ລະບົບ',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Request No</label><input id="f_request_no" value="${item?.request_no || nextReqNo('access_requests', 'ACC')}" readonly></div>
+        <div class="field"><label>ວັນທີ</label><input type="date" id="f_submitted_at" value="${item?.submitted_at?.slice(0,10) || new Date().toISOString().slice(0,10)}"></div>
+        <div class="section-divider">ຂໍ້ມູນຜູ້ຮ້ອງຂໍ</div>
+        <div class="field"><label>ຊື່ຜູ້ຮ້ອງຂໍ *</label><input id="f_requester" value="${item?.requester || state.user?.displayName || ''}"></div>
+        <div class="field"><label>ພະແນກ</label><input id="f_department" value="${item?.department || ''}"></div>
+        <div class="field"><label>ຕຳແໜ່ງ</label><input id="f_position" value="${item?.position || ''}"></div>
+        <div class="field"><label>ຜູ້ບັງຄັບບັນຊາ</label><input id="f_supervisor" value="${item?.supervisor || ''}"></div>
+        <div class="section-divider">ລາຍລະອຽດການຂໍ</div>
+        <div class="field"><label>ປະເພດ *</label>
+          <select id="f_access_type">${types.map(t => `<option ${item?.access_type === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ລະບົບ / System *</label><input id="f_system" value="${item?.system || ''}" placeholder="Email, ERP, File Server..."></div>
+        <div class="field"><label>ລະດັບສິດ</label>
+          <select id="f_access_level">${levels.map(l => `<option ${item?.access_level === l ? 'selected' : ''}>${l}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ໄລຍະເວລາ</label><input id="f_duration" value="${item?.duration || ''}" placeholder="Permanent / 6 ເດືອນ"></div>
+        <div class="field full"><label>ເຫດຜົນ / Justification *</label><textarea id="f_justification">${item?.justification || ''}</textarea></div>
+        <div class="section-divider">ການອະນຸມັດ</div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${stats.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ອະນຸມັດໂດຍ</label><input id="f_approved_by" value="${item?.approved_by || ''}"></div>
+        <div class="field full"><label>ໝາຍເຫດ</label><textarea id="f_notes">${item?.notes || ''}</textarea></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['request_no','submitted_at','requester','department','position','supervisor','access_type','system','access_level','duration','justification','status','approved_by','notes']);
+      if (!data.requester || !data.system || !data.justification) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('access_requests', item.id, data);
+      else await storage.create('access_requests', data);
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('access_requests');
+      return true;
+    }
+  });
+}
+
+function nextReqNo(node, prefix) {
+  const all = state.mode === 'firebase' ? {} : JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+  const year = new Date().getFullYear();
+  const max = Object.values(all)
+    .filter(i => (i.request_no || '').includes(year))
+    .map(i => parseInt((i.request_no || '').split('-').pop() || 0))
+    .reduce((m,v) => Math.max(m, v), 0);
+  return `${prefix}-${year}-${String(max + 1).padStart(4, '0')}`;
+}
+
+function showRequestDetail(item, type) {
+  openModal({
+    wide: true,
+    title: `${item.request_no || item.id}`,
+    body: `
+      <div class="detail-grid">
+        ${Object.entries(item).filter(([k]) => !['id','created_at','updated_at','created_by','updated_by'].includes(k)).map(([k,v]) =>
+          detailItem(k.replace(/_/g,' '), typeof v === 'object' ? JSON.stringify(v) : (v?.toString() || ''))
+        ).join('')}
+      </div>
+    `,
+    hideSubmit: true
+  });
+}
+
+// =================== CHANGE REQUESTS ===================
+async function renderChangeRequests() {
+  const items = await storage.getAll('change_requests');
+  setTopbarAction('+ ຂໍປ່ຽນແປງ', () => openChangeRequestForm());
+  renderListPage({
+    items,
+    searchFields: ['title','requester','description'],
+    filters: [
+      { key: 'change_type', label: 'ປະເພດ', options: ['Standard','Normal','Emergency'] },
+      { key: 'status', label: 'ສະຖານະ', options: [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['rejected','ປະຕິເສດ'],['complete','ສຳເລັດ']] }
+    ],
+    columns: [
+      { key: 'change_no', label: 'No', render: v => `<span class="mono fw-600">${v}</span>` },
+      { key: 'title', label: 'ຫົວຂໍ້' },
+      { key: 'change_type', label: 'ປະເພດ' },
+      { key: 'risk_level', label: 'ຄວາມສ່ຽງ', render: v => {
+        const cls = v === 'High' ? 'critical' : (v === 'Medium' ? 'pending' : 'info');
+        return v ? `<span class="badge ${cls}">${v}</span>` : '';
+      }},
+      { key: 'requester', label: 'ຜູ້ຮ້ອງຂໍ' },
+      { key: 'scheduled_date', label: 'ກຳນົດການ', render: v => v ? `<span class="mono text-sm">${v}</span>` : '-' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openChangeRequestForm(item),
+    onView: (item) => showRequestDetail(item),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບຄຳຂໍນີ້?')) return;
+      await storage.delete('change_requests', item.id);
+      renderModule('change_requests');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີ Change Request'
+  });
+}
+
+function openChangeRequestForm(item) {
+  const types = ['Standard','Normal','Emergency'];
+  const risks = ['Low','Medium','High'];
+  const stats = [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['rejected','ປະຕິເສດ'],['complete','ສຳເລັດ']];
+  openModal({
+    wide: true,
+    title: item ? `ແກ້ໄຂ: ${item.change_no}` : 'Change Request ໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Change No</label><input id="f_change_no" value="${item?.change_no || nextReqNo2('change_requests','CHG','change_no')}" readonly></div>
+        <div class="field"><label>ປະເພດ *</label>
+          <select id="f_change_type">${types.map(t => `<option ${item?.change_type === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ຫົວຂໍ້ *</label><input id="f_title" value="${item?.title || ''}"></div>
+        <div class="field"><label>ຜູ້ຮ້ອງຂໍ *</label><input id="f_requester" value="${item?.requester || state.user?.displayName || ''}"></div>
+        <div class="field"><label>ພະແນກ</label><input id="f_department" value="${item?.department || ''}"></div>
+        <div class="field"><label>ຄວາມສ່ຽງ</label>
+          <select id="f_risk_level">${risks.map(r => `<option ${item?.risk_level === r ? 'selected' : ''}>${r}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ກຳນົດການ</label><input type="date" id="f_scheduled_date" value="${item?.scheduled_date || ''}"></div>
+        <div class="field full"><label>ລາຍລະອຽດການປ່ຽນແປງ *</label><textarea id="f_description" style="min-height:80px">${item?.description || ''}</textarea></div>
+        <div class="field full"><label>ເຫດຜົນ / Business Justification</label><textarea id="f_justification">${item?.justification || ''}</textarea></div>
+        <div class="field full"><label>ຜົນກະທົບ / Impact Analysis</label><textarea id="f_impact">${item?.impact || ''}</textarea></div>
+        <div class="field full"><label>Rollback Plan</label><textarea id="f_rollback">${item?.rollback || ''}</textarea></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${stats.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ອະນຸມັດໂດຍ</label><input id="f_approved_by" value="${item?.approved_by || ''}"></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['change_no','change_type','title','requester','department','risk_level','scheduled_date','description','justification','impact','rollback','status','approved_by']);
+      if (!data.title || !data.description || !data.requester) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('change_requests', item.id, data);
+      else await storage.create('change_requests', data);
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('change_requests');
+      return true;
+    }
+  });
+}
+
+function nextReqNo2(node, prefix, field) {
+  const all = state.mode === 'firebase' ? {} : JSON.parse(localStorage.getItem('kgs_' + node) || '{}');
+  const year = new Date().getFullYear();
+  const max = Object.values(all)
+    .filter(i => (i[field] || '').includes(year))
+    .map(i => parseInt((i[field] || '').split('-').pop() || 0))
+    .reduce((m,v) => Math.max(m, v), 0);
+  return `${prefix}-${year}-${String(max + 1).padStart(4, '0')}`;
+}
+
+// =================== IT REQUESTS ===================
+async function renderITRequests() {
+  const items = await storage.getAll('it_requests');
+  setTopbarAction('+ ຂໍບໍລິການ', () => openITRequestForm());
+  renderListPage({
+    items,
+    searchFields: ['title','requester','description','service_type'],
+    filters: [
+      { key: 'service_type', label: 'ບໍລິການ', options: ['Hardware','Software Install','Account Setup','Email','Network','Other'] },
+      { key: 'priority', label: 'ຄວາມສຳຄັນ', options: [['urgent','ດ່ວນ'],['high','ສູງ'],['medium','ປານກາງ'],['low','ຕ່ຳ']] },
+      { key: 'status', label: 'ສະຖານະ', options: [['pending','ລໍຖ້າ'],['in-progress','ກຳລັງດຳເນີນ'],['complete','ສຳເລັດ'],['rejected','ປະຕິເສດ']] }
+    ],
+    columns: [
+      { key: 'request_no', label: 'No', render: v => `<span class="mono fw-600">${v}</span>` },
+      { key: 'submitted_at', label: 'ວັນທີ', render: v => v ? v.split('T')[0] : '' },
+      { key: 'title', label: 'ຫົວຂໍ້' },
+      { key: 'service_type', label: 'ບໍລິການ' },
+      { key: 'requester', label: 'ຜູ້ຮ້ອງຂໍ' },
+      { key: 'priority', label: 'ສຳຄັນ', render: v => {
+        const lbl = {urgent:'ດ່ວນ', high:'ສູງ', medium:'ປານກາງ', low:'ຕ່ຳ'}[v];
+        const cls = v === 'urgent' ? 'critical' : (v === 'high' ? 'pending' : 'info');
+        return v ? `<span class="badge ${cls}">${lbl}</span>` : '';
+      }},
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openITRequestForm(item),
+    onView: (item) => showRequestDetail(item),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບຄຳຂໍນີ້?')) return;
+      await storage.delete('it_requests', item.id);
+      renderModule('it_requests');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີ IT Request'
+  });
+}
+
+function openITRequestForm(item) {
+  const svc = ['Hardware','Software Install','Account Setup','Email','Network','Other'];
+  const prio = [['low','ຕ່ຳ'],['medium','ປານກາງ'],['high','ສູງ'],['urgent','ດ່ວນ']];
+  const stats = [['pending','ລໍຖ້າ'],['in-progress','ກຳລັງດຳເນີນ'],['complete','ສຳເລັດ'],['rejected','ປະຕິເສດ']];
+  openModal({
+    wide: true,
+    title: item ? `ແກ້ໄຂ: ${item.request_no}` : 'IT Request ໃໝ່',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Request No</label><input id="f_request_no" value="${item?.request_no || nextReqNo('it_requests','REQ')}" readonly></div>
+        <div class="field"><label>ວັນທີ</label><input type="date" id="f_submitted_at" value="${item?.submitted_at?.slice(0,10) || new Date().toISOString().slice(0,10)}"></div>
+        <div class="field"><label>ຜູ້ຮ້ອງຂໍ *</label><input id="f_requester" value="${item?.requester || state.user?.displayName || ''}"></div>
+        <div class="field"><label>ພະແນກ</label><input id="f_department" value="${item?.department || ''}"></div>
+        <div class="field"><label>ປະເພດບໍລິການ *</label>
+          <select id="f_service_type">${svc.map(s => `<option ${item?.service_type === s ? 'selected' : ''}>${s}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ຄວາມສຳຄັນ</label>
+          <select id="f_priority">${prio.map(p => `<option value="${p[0]}" ${item?.priority === p[0] ? 'selected' : ''}>${p[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field full"><label>ຫົວຂໍ້ *</label><input id="f_title" value="${item?.title || ''}"></div>
+        <div class="field full"><label>ລາຍລະອຽດ *</label><textarea id="f_description" style="min-height:90px">${item?.description || ''}</textarea></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${stats.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ມອບໝາຍໃຫ້</label><input id="f_assigned_to" value="${item?.assigned_to || ''}"></div>
+        <div class="field full"><label>ການແກ້ໄຂ / Resolution</label><textarea id="f_resolution">${item?.resolution || ''}</textarea></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['request_no','submitted_at','requester','department','service_type','priority','title','description','status','assigned_to','resolution']);
+      if (!data.title || !data.description) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('it_requests', item.id, data);
+      else await storage.create('it_requests', data);
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('it_requests');
+      return true;
+    }
+  });
+}
+
+// =================== E-WASTE ===================
+async function renderEwasteRequests() {
+  const items = await storage.getAll('ewaste_requests');
+  setTopbarAction('+ ຂໍກຳຈັດ', () => openEwasteForm());
+  renderListPage({
+    items,
+    searchFields: ['asset_code','description','reason','requester'],
+    filters: [
+      { key: 'disposal_method', label: 'ວິທີກຳຈັດ', options: ['Recycle','Donate','Resale','Destroy'] },
+      { key: 'status', label: 'ສະຖານະ', options: [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['complete','ສຳເລັດ'],['rejected','ປະຕິເສດ']] }
+    ],
+    columns: [
+      { key: 'request_no', label: 'No', render: v => `<span class="mono fw-600">${v}</span>` },
+      { key: 'submitted_at', label: 'ວັນທີ', render: v => v ? v.split('T')[0] : '' },
+      { key: 'asset_code', label: 'Asset', render: v => v ? `<span class="mono">${v}</span>` : '' },
+      { key: 'description', label: 'ລາຍລະອຽດ' },
+      { key: 'disposal_method', label: 'ວິທີ' },
+      { key: 'requester', label: 'ຜູ້ຮ້ອງຂໍ' },
+      { key: 'status', label: 'ສະຖານະ', render: v => statusBadge(v) }
+    ],
+    onEdit: (item) => openEwasteForm(item),
+    onView: (item) => showRequestDetail(item),
+    onDelete: async (item) => {
+      if (!confirm('ລຶບຄຳຂໍນີ້?')) return;
+      await storage.delete('ewaste_requests', item.id);
+      renderModule('ewaste_requests');
+    },
+    emptyTitle: 'ຍັງບໍ່ມີຄຳຂໍ E-waste'
+  });
+}
+
+function openEwasteForm(item) {
+  const methods = ['Recycle','Donate','Resale','Destroy'];
+  const stats = [['pending','ລໍຖ້າ'],['approved','ອະນຸມັດ'],['complete','ສຳເລັດ'],['rejected','ປະຕິເສດ']];
+  openModal({
+    wide: true,
+    title: item ? `ແກ້ໄຂ: ${item.request_no}` : 'ຂໍກຳຈັດ E-waste',
+    body: `
+      <div class="form-grid">
+        <div class="field"><label>Request No</label><input id="f_request_no" value="${item?.request_no || nextReqNo('ewaste_requests','EW')}" readonly></div>
+        <div class="field"><label>ວັນທີ</label><input type="date" id="f_submitted_at" value="${item?.submitted_at?.slice(0,10) || new Date().toISOString().slice(0,10)}"></div>
+        <div class="field"><label>ຜູ້ຮ້ອງຂໍ *</label><input id="f_requester" value="${item?.requester || state.user?.displayName || ''}"></div>
+        <div class="field"><label>ພະແນກ</label><input id="f_department" value="${item?.department || ''}"></div>
+        <div class="field"><label>Asset Code</label><input id="f_asset_code" value="${item?.asset_code || ''}" placeholder="IT-H001"></div>
+        <div class="field"><label>ປະເພດອຸປະກອນ</label><input id="f_equipment_type" value="${item?.equipment_type || ''}"></div>
+        <div class="field full"><label>ລາຍລະອຽດອຸປະກອນ *</label><textarea id="f_description">${item?.description || ''}</textarea></div>
+        <div class="field full"><label>ເຫດຜົນ / Reason *</label><textarea id="f_reason">${item?.reason || ''}</textarea></div>
+        <div class="field"><label>ວິທີກຳຈັດ *</label>
+          <select id="f_disposal_method">${methods.map(m => `<option ${item?.disposal_method === m ? 'selected' : ''}>${m}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ມີຂໍ້ມູນອ່ອນໄຫວບໍ?</label>
+          <select id="f_sensitive_data"><option value="">-</option><option value="yes" ${item?.sensitive_data === 'yes' ? 'selected':''}>ມີ — ຕ້ອງລົບ</option><option value="no" ${item?.sensitive_data === 'no' ? 'selected':''}>ບໍ່ມີ</option></select>
+        </div>
+        <div class="field full"><label>ການລົບຂໍ້ມູນ / Data Sanitization</label><textarea id="f_sanitization">${item?.sanitization || ''}</textarea></div>
+        <div class="field"><label>ສະຖານະ</label>
+          <select id="f_status">${stats.map(s => `<option value="${s[0]}" ${item?.status === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>ອະນຸມັດໂດຍ</label><input id="f_approved_by" value="${item?.approved_by || ''}"></div>
+      </div>
+    `,
+    onSubmit: async () => {
+      const data = collectFields(['request_no','submitted_at','requester','department','asset_code','equipment_type','description','reason','disposal_method','sensitive_data','sanitization','status','approved_by']);
+      if (!data.description || !data.reason) { showToast('ຜິດພາດ','ກະລຸນາໃສ່ຂໍ້ມູນຈຳເປັນ','error'); return false; }
+      if (item) await storage.update('ewaste_requests', item.id, data);
+      else await storage.create('ewaste_requests', data);
+      // if approved + asset_code, mark asset as retired
+      if (data.status === 'complete' && data.asset_code) {
+        const assets = await storage.getAll('assets');
+        const asset = assets.find(a => a.asset_code === data.asset_code);
+        if (asset) await storage.update('assets', asset.id, { status: 'retired' });
+      }
+      showToast('ສຳເລັດ','ບັນທຶກແລ້ວ','success');
+      renderModule('ewaste_requests');
+      return true;
+    }
+  });
+}
+
+// =================== DOCUMENTS ===================
+async function renderDocuments() {
+  const content = document.getElementById('content');
+  setTopbarAction('+ ອັບໂຫຼດໄຟລ', () => openDocumentUpload());
+  const docs = await storage.getAll('files');
+
+  // group by category
+  const categories = [
+    { id: 'policy', label: 'IT Policies', en: 'IT-POL', count: 4 },
+    { id: 'procedure', label: 'IT Procedures', en: 'IT-PROC', count: 5 },
+    { id: 'form', label: 'Forms', en: 'IT-FORM', count: 5 },
+    { id: 'template', label: 'Templates', en: 'IT-TEMPLATE', count: 3 },
+    { id: 'record', label: 'Records', en: 'Records', count: 0 }
+  ];
+
+  const imsDocs = [
+    { code: 'IT-POL-001', name: 'IT Policy Manual', cat: 'policy' },
+    { code: 'IT-POL-002', name: 'Information Security Policy', cat: 'policy' },
+    { code: 'IT-POL-003', name: 'Data Protection & Backup Policy', cat: 'policy' },
+    { code: 'IT-POL-004', name: 'BYOD Policy', cat: 'policy' },
+    { code: 'IT-PROC-001', name: 'Incident Management Procedure', cat: 'procedure' },
+    { code: 'IT-PROC-002', name: 'Access Control Procedure', cat: 'procedure' },
+    { code: 'IT-PROC-003', name: 'Change Management Procedure', cat: 'procedure' },
+    { code: 'IT-PROC-004', name: 'Asset Management Procedure', cat: 'procedure' },
+    { code: 'IT-PROC-005', name: 'E-waste Management Procedure', cat: 'procedure' },
+    { code: 'IT-FORM-001', name: 'Incident Report Form', cat: 'form' },
+    { code: 'IT-FORM-002', name: 'Access Request Form', cat: 'form' },
+    { code: 'IT-FORM-003', name: 'Change Request Form', cat: 'form' },
+    { code: 'IT-FORM-004', name: 'IT Service Request Form', cat: 'form' },
+    { code: 'IT-FORM-005', name: 'E-waste Disposal Form', cat: 'form' },
+    { code: 'IT-TEMPLATE-001', name: 'Asset Registration Template', cat: 'template' },
+    { code: 'IT-TEMPLATE-002', name: 'Maintenance Log Template', cat: 'template' },
+    { code: 'IT-TEMPLATE-003', name: 'Software License Register', cat: 'template' }
+  ];
+
+  content.innerHTML = `
+    <div class="info-msg mb-4">
+      <strong>IMS Document Library</strong> — ເອກະສານ ISO 9001/14001/45001. ສາມາດອັບໂຫຼດໄຟລແນບ (PDF/Word) ໃສ່ແຕ່ລະລາຍການ.
+    </div>
+
+    <div class="stats-grid" style="margin-bottom:20px">
+      ${categories.map(c => {
+        const uploaded = docs.filter(d => d.doc_category === c.id).length;
+        return `
+          <div class="stat-card">
+            <div class="stat-label">${c.en}</div>
+            <div class="stat-value">${c.count}</div>
+            <div class="stat-meta">${c.label} · ${uploaded} ໄຟລແນບ</div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Doc Code</th>
+              <th>ຊື່ເອກະສານ</th>
+              <th>ປະເພດ</th>
+              <th>ໄຟລແນບ</th>
+              <th style="width:100px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${imsDocs.map(d => {
+              const attached = docs.filter(f => f.doc_code === d.code);
+              return `
+                <tr>
+                  <td><span class="mono fw-600">${d.code}</span></td>
+                  <td>${d.name}</td>
+                  <td><span class="badge info">${d.cat}</span></td>
+                  <td>${attached.length === 0 ? '<span class="text-muted text-sm">ບໍ່ມີໄຟລ</span>' :
+                    attached.map(f => `
+                      <a href="#" onclick="event.preventDefault(); downloadFile('${f.id}')" class="text-sm" style="display:block; color:var(--primary)">
+                        📎 ${f.filename} <span class="text-muted">(${formatBytes(f.size)})</span>
+                      </a>
+                    `).join('')}
+                  </td>
+                  <td class="row-actions">
+                    <button class="action-btn" onclick="openDocumentUpload('${d.code}')">📤 Upload</button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    ${docs.filter(d => !d.doc_code).length > 0 ? `
+      <div class="panel mt-4">
+        <div class="panel-header"><div class="panel-title">ໄຟລອື່ນໆ / Other Files</div></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Filename</th><th>ປະເພດ</th><th>ຂະໜາດ</th><th>ອັບໂຫຼດເມື່ອ</th><th></th></tr></thead>
+            <tbody>
+              ${docs.filter(d => !d.doc_code).map(f => `
+                <tr>
+                  <td>${f.filename}</td>
+                  <td>${f.mime_type || 'application/octet-stream'}</td>
+                  <td>${formatBytes(f.size)}</td>
+                  <td><span class="mono text-sm">${f.created_at?.split('T')[0]}</span></td>
+                  <td class="row-actions">
+                    <button class="action-btn" onclick="downloadFile('${f.id}')">⬇ Download</button>
+                    <button class="action-btn danger" onclick="deleteFile('${f.id}')">×</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ` : ''}
+  `;
+}
+
+function openDocumentUpload(docCode) {
+  openModal({
+    title: docCode ? `ອັບໂຫຼດໄຟລໃສ່ ${docCode}` : 'ອັບໂຫຼດໄຟລ',
+    body: `
+      <div class="info-msg">
+        <strong>ໝາຍເຫດ:</strong> ໄຟລຂະໜາດໃຫຍ່ (>1MB) ບໍ່ໝາະທີ່ຈະເກັບໃນ database. ສຳລັບໃຊ້ງານຈິງ, ຄວນເຊື່ອມຕໍ່ກັບ Google Drive.
+      </div>
+      <div class="field">
+        <label>ເລືອກໄຟລ *</label>
+        <input type="file" id="f_file">
+      </div>
+      <div class="field">
+        <label>Doc Code (ຖ້າແນບໃສ່ເອກະສານ IMS)</label>
+        <input id="f_doc_code" value="${docCode || ''}" placeholder="IT-POL-001">
+      </div>
+      <div class="field">
+        <label>ໝາຍເຫດ</label>
+        <textarea id="f_description"></textarea>
+      </div>
+    `,
+    onSubmit: async () => {
+      const file = document.getElementById('f_file').files[0];
+      if (!file) { showToast('ຜິດພາດ','ກະລຸນາເລືອກໄຟລ','error'); return false; }
+      if (file.size > 2 * 1024 * 1024) { showToast('ຜິດພາດ','ໄຟລໃຫຍ່ກວ່າ 2MB ບໍ່ສາມາດອັບໂຫຼດໄດ້','error'); return false; }
+
+      const base64 = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result.split(',')[1]);
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+
+      await storage.create('files', {
+        filename: file.name,
+        mime_type: file.type,
+        size: file.size,
+        doc_code: document.getElementById('f_doc_code').value || null,
+        doc_category: docCode ? docCode.split('-')[1]?.toLowerCase() : null,
+        description: document.getElementById('f_description').value,
+        data: base64
+      });
+
+      showToast('ສຳເລັດ','ອັບໂຫຼດແລ້ວ','success');
+      renderModule('documents');
+      return true;
+    }
+  });
+}
+
+window.downloadFile = async function(id) {
+  const file = await storage.getOne('files', id);
+  if (!file) { showToast('ຜິດພາດ','ບໍ່ພົບໄຟລ','error'); return; }
+  const link = document.createElement('a');
+  link.href = `data:${file.mime_type};base64,${file.data}`;
+  link.download = file.filename;
+  link.click();
+};
+
+window.deleteFile = async function(id) {
+  if (!confirm('ລຶບໄຟລນີ້?')) return;
+  await storage.delete('files', id);
+  showToast('ສຳເລັດ','ລຶບແລ້ວ','success');
+  renderModule('documents');
+};
+
+function formatBytes(b) {
+  if (!b) return '-';
+  if (b < 1024) return b + ' B';
+  if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
+  return (b/1024/1024).toFixed(1) + ' MB';
+}
+
+// =================== AUDIT LOG ===================
+async function renderAudit() {
+  const items = (await storage.getAll('audit_log')).sort((a,b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+  setTopbarAction('', null);
+  renderListPage({
+    items,
+    searchFields: ['user','node','label','action'],
+    filters: [
+      { key: 'action', label: 'Action', options: [['create','create'],['update','update'],['delete','delete']] },
+      { key: 'node', label: 'Module', options: ['assets','incidents','licenses','access_requests','change_requests','it_requests','ewaste_requests','maintenance','users','files'] }
+    ],
+    columns: [
+      { key: 'timestamp', label: 'ເວລາ', render: v => `<span class="mono text-sm">${v ? new Date(v).toLocaleString() : ''}</span>` },
+      { key: 'user', label: 'User' },
+      { key: 'action', label: 'Action', render: v => `<span class="badge ${actionColor(v)}">${v}</span>` },
+      { key: 'node', label: 'Module', render: v => nodeLabel(v) },
+      { key: 'label', label: 'Target' }
+    ],
+    emptyTitle: 'ຍັງບໍ່ມີກິດຈະກຳ'
+  });
+}
+
+// =================== USERS ===================
+async function renderUsers() {
+  const content = document.getElementById('content');
+  setTopbarAction('', null);
+
+  let users = [];
+  if (state.mode === 'firebase') {
+    users = await storage.getAll('users');
+  } else {
+    const localUsers = JSON.parse(localStorage.getItem('kgs_local_users') || '{}');
+    users = Object.entries(localUsers).map(([email, u]) => ({ email, ...u }));
+  }
+
+  content.innerHTML = `
+    <div class="info-msg mb-4">
+      <strong>ການຄຸ້ມຄອງຜູ້ໃຊ້</strong> — ມີ 4 ບົດບາດ: Administrator, IT Manager, IT Staff, Employee. ສະເພາະ Administrator ສາມາດແກ້ໄຂບົດບາດ.
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Email</th><th>ຊື່</th><th>ບົດບາດ</th><th>ສ້າງເມື່ອ</th><th></th></tr>
+          </thead>
+          <tbody>
+            ${users.map(u => `
+              <tr>
+                <td><span class="mono">${u.email}</span></td>
+                <td>${u.displayName || u.email.split('@')[0]}</td>
+                <td><span class="badge info">${roleLabel(u.role)}</span></td>
+                <td><span class="mono text-sm">${u.created_at?.split('T')[0] || '-'}</span></td>
+                <td class="row-actions">
+                  <button class="action-btn" onclick="changeUserRole('${u.email}')">ປ່ຽນບົດບາດ</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+window.changeUserRole = function(email) {
+  openModal({
+    title: 'ປ່ຽນບົດບາດ: ' + email,
+    body: `
+      <div class="field">
+        <label>ບົດບາດໃໝ່</label>
+        <select id="f_role">
+          <option value="employee">Employee</option>
+          <option value="it_staff">IT Staff</option>
+          <option value="it_manager">IT Manager</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+    `,
+    onSubmit: async () => {
+      const role = document.getElementById('f_role').value;
+      if (state.mode === 'local') {
+        const users = JSON.parse(localStorage.getItem('kgs_local_users') || '{}');
+        if (users[email]) {
+          users[email].role = role;
+          localStorage.setItem('kgs_local_users', JSON.stringify(users));
+        }
+      }
+      showToast('ສຳເລັດ','ປ່ຽນບົດບາດແລ້ວ','success');
+      renderModule('users');
+      return true;
+    }
+  });
+};
+
+// =================== BACKUP ===================
+async function renderBackup() {
+  const content = document.getElementById('content');
+  setTopbarAction('', null);
+
+  const data = await storage.exportAll();
+  let totalRecords = 0;
+  const stats = {};
+  for (const [node, content] of Object.entries(data)) {
+    const count = Object.keys(content || {}).length;
+    stats[node] = count;
+    totalRecords += count;
+  }
+
+  content.innerHTML = `
+    <div class="dashboard-grid mb-4">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">ສຳຮອງ & ກູ້ຄືນຂໍ້ມູນ</div></div>
+        <div class="panel-body">
+          <p class="text-sm text-muted mb-4">ດາວໂຫຼດສຳເນົາ JSON ຂອງຂໍ້ມູນທັງໝົດ, ຫຼື ໂຫຼດໄຟລສຳຮອງເພື່ອກູ້ຄືນ. ໃນຮຸ່ນຜະລິດ, ການສຳຮອງຈະເຮັດອັດຕະໂນມັດທຸກວັນເວລາ 02:00 ICT ໄປ Google Drive.</p>
+          <div class="flex gap-2 mt-4" style="flex-wrap:wrap">
+            <button class="btn" onclick="downloadBackup()">⬇ ດາວໂຫຼດສຳຮອງ JSON</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('restoreFile').click()">⬆ ກູ້ຄືນຈາກ JSON</button>
+            <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restoreBackup(event)">
+            <button class="btn btn-secondary" onclick="downloadCSV()">⬇ Export CSV (All Assets)</button>
+          </div>
+          ${state.mode === 'local' ? `
+            <div class="info-msg mt-4">
+              <strong>ໂໝດທົດລອງ:</strong> ຂໍ້ມູນເກັບໄວ້ໃນ browser ນີ້ເທົ່ານັ້ນ. ກະລຸນາສຳຮອງເປັນປະຈຳ.
+            </div>
+          ` : `
+            <div class="info-msg mt-4">
+              <strong>Firebase Mode:</strong> ການສຳຮອງອັດຕະໂນມັດຈະເຮັດໂດຍ Cloud Functions. ກວດສອບໃນ Firebase Console.
+            </div>
+          `}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">ສະຫຼຸບຂໍ້ມູນ</div></div>
+        <div class="panel-body">
+          <div style="font-family:var(--font-serif); font-size:36px; font-weight:700; color:var(--primary-dark); letter-spacing:-1px">${totalRecords}</div>
+          <div class="text-sm text-muted mb-4">ລາຍການທັງໝົດ</div>
+          <div style="display:flex; flex-direction:column; gap:6px; font-size:13px">
+            ${Object.entries(stats).filter(([,c]) => c > 0).map(([node, count]) => `
+              <div class="flex" style="justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border)">
+                <span>${nodeLabel(node)}</span>
+                <span class="fw-600 mono">${count}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">ຕາຕະລາງ Backup (ສຳລັບ Production)</div></div>
+      <div class="panel-body">
+        <table>
+          <thead>
+            <tr><th>ປະເພດ</th><th>ຄວາມຖີ່</th><th>ເວລາ</th><th>ປະຕິບັດການ</th><th>ເກັບຮັກສາ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Daily</td><td>ທຸກວັນ</td><td class="mono">02:00 ICT</td><td>Full JSON export</td><td>30 ວັນ</td></tr>
+            <tr><td>Weekly</td><td>ທຸກວັນອາທິດ</td><td class="mono">03:00 ICT</td><td>Compressed archive</td><td>12 ອາທິດ</td></tr>
+            <tr><td>Monthly</td><td>ວັນທີ 1</td><td class="mono">04:00 ICT</td><td>Full backup + reports</td><td>12 ເດືອນ</td></tr>
+            <tr><td>Yearly</td><td>1 ມັງກອນ</td><td class="mono">05:00 ICT</td><td>Annual archive</td><td>7 ປີ</td></tr>
+            <tr><td>On-demand</td><td>Manual</td><td class="mono">-</td><td>User-triggered</td><td>Indefinite</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+window.downloadBackup = async function() {
+  const data = await storage.exportAll();
+  const json = JSON.stringify({
+    backup_version: '1.0',
+    backup_date: new Date().toISOString(),
+    source: state.mode,
+    organization: 'KGS — Khammany General Service',
+    data
+  }, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `kgs-it-backup-${new Date().toISOString().split('T')[0]}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  showToast('ສຳເລັດ','ດາວໂຫຼດສຳຮອງແລ້ວ','success');
+};
+
+window.restoreBackup = async function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (!confirm('ການກູ້ຄືນຈະຂຽນທັບຂໍ້ມູນປະຈຸບັນ. ສືບຕໍ່?')) return;
+  const text = await file.text();
+  try {
+    const json = JSON.parse(text);
+    if (!json.data) throw new Error('Invalid backup format');
+    await storage.importAll(json.data);
+    showToast('ສຳເລັດ','ກູ້ຄືນແລ້ວ','success');
+    renderModule('backup');
+  } catch (e) {
+    showToast('ຜິດພາດ','ໄຟລບໍ່ຖືກຕ້ອງ: ' + e.message,'error');
+  }
+};
+
+window.downloadCSV = async function() {
+  const assets = await storage.getAll('assets');
+  if (assets.length === 0) { showToast('ຫວ່າງ','ບໍ່ມີຂໍ້ມູນ','warning'); return; }
+  const cols = ['asset_code','name','category','brand','serial_number','assigned_to','location','purchase_date','value','status'];
+  const csv = [cols.join(',')].concat(
+    assets.map(a => cols.map(c => `"${(a[c] || '').toString().replace(/"/g,'""')}"`).join(','))
+  ).join('\n');
+  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `kgs-assets-${new Date().toISOString().split('T')[0]}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
+// =================== GENERIC LIST RENDERER ===================
+function renderListPage({ items, searchFields, filters, columns, onEdit, onDelete, onView, emptyTitle, emptyAction }) {
+  const content = document.getElementById('content');
+
+  // sort newest first
+  items.sort((a,b) => (b.created_at || '').localeCompare(a.created_at || ''));
+
+  let filtered = items;
+  const search = document.getElementById('globalSearch').value.toLowerCase().trim();
+  if (search) {
+    filtered = filtered.filter(i =>
+      searchFields.some(f => (i[f] || '').toString().toLowerCase().includes(search))
+    );
+  }
+
+  // build filter UI
+  const filterUI = filters ? `
+    <div class="module-filters">
+      ${filters.map(f => `
+        <select class="filter-select" data-filter="${f.key}" onchange="window.__applyFilters()">
+          <option value="">${f.label}: ທັງໝົດ</option>
+          ${f.options.map(o => {
+            const v = Array.isArray(o) ? o[0] : o;
+            const l = Array.isArray(o) ? o[1] : o;
+            return `<option value="${v}">${l}</option>`;
+          }).join('')}
+        </select>
+      `).join('')}
+      <button class="btn btn-sm btn-secondary" onclick="window.__resetFilters()">Reset</button>
+    </div>
+  ` : '';
+
+  content.innerHTML = `
+    <div class="module-toolbar">
+      ${filterUI}
+      <div class="text-sm text-muted">ທັງໝົດ <strong id="resultCount">${filtered.length}</strong> ລາຍການ</div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              ${columns.map(c => `<th>${c.label}</th>`).join('')}
+              ${(onEdit || onDelete || onView) ? '<th></th>' : ''}
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  function applyFiltersAndRender() {
+    const search = document.getElementById('globalSearch').value.toLowerCase().trim();
+    let result = items;
+    if (search) {
+      result = result.filter(i =>
+        searchFields.some(f => (i[f] || '').toString().toLowerCase().includes(search))
+      );
+    }
+    if (filters) {
+      for (const f of filters) {
+        const sel = document.querySelector(`[data-filter="${f.key}"]`);
+        if (sel && sel.value) {
+          result = result.filter(i => (i[f.key] || '') === sel.value);
+        }
+      }
+    }
+    document.getElementById('resultCount').textContent = result.length;
+    const tbody = document.getElementById('tableBody');
+    if (result.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="99"><div class="empty">
+        <div class="empty-icon">📋</div>
+        <div class="empty-title">${emptyTitle || 'ບໍ່ມີຂໍ້ມູນ'}</div>
+        ${emptyAction ? `<button class="btn mt-2" onclick="document.getElementById('topbarAction').click()">${emptyAction}</button>` : ''}
+      </div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = result.map(item => `
+      <tr>
+        ${columns.map(c => `<td>${c.render ? c.render(item[c.key], item) : (item[c.key] != null ? escapeHtml(item[c.key].toString()) : '<span class="text-muted">-</span>')}</td>`).join('')}
+        ${(onEdit || onDelete || onView) ? `<td class="row-actions">
+          ${onView ? `<button class="action-btn" data-action="view" data-id="${item.id}">👁</button>` : ''}
+          ${onEdit ? `<button class="action-btn" data-action="edit" data-id="${item.id}">✎</button>` : ''}
+          ${onDelete ? `<button class="action-btn danger" data-action="delete" data-id="${item.id}">🗑</button>` : ''}
+        </td>` : ''}
+      </tr>
+    `).join('');
+
+    tbody.querySelectorAll('.action-btn').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        const item = items.find(i => i.id === id);
+        if (!item) return;
+        if (action === 'view' && onView) onView(item);
+        if (action === 'edit' && onEdit) onEdit(item);
+        if (action === 'delete' && onDelete) onDelete(item);
+      };
+    });
+  }
+
+  window.__applyFilters = applyFiltersAndRender;
+  window.__resetFilters = () => {
+    document.querySelectorAll('[data-filter]').forEach(s => s.value = '');
+    document.getElementById('globalSearch').value = '';
+    applyFiltersAndRender();
+  };
+
+  applyFiltersAndRender();
+}
+
+// =================== UI HELPERS ===================
+function setTopbarAction(label, handler) {
+  const btn = document.getElementById('topbarAction');
+  if (!label) {
+    btn.style.display = 'none';
+    btn.onclick = null;
+    return;
+  }
+  btn.textContent = label;
+  btn.style.display = 'inline-flex';
+  btn.onclick = handler;
+}
+
+function openModal({ title, body, onSubmit, hideSubmit, wide }) {
+  document.getElementById('modal').classList.toggle('wide', !!wide);
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = body;
+  document.getElementById('modalBackdrop').classList.add('open');
+  const footer = document.getElementById('modalFooter');
+  footer.style.display = hideSubmit ? 'none' : 'flex';
+  const confirmBtn = document.getElementById('modalConfirm');
+  confirmBtn.onclick = async () => {
+    if (onSubmit) {
+      confirmBtn.disabled = true;
+      const ok = await onSubmit();
+      confirmBtn.disabled = false;
+      if (ok) closeModal();
+    } else {
+      closeModal();
+    }
+  };
+}
+
+window.closeModal = function() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+};
+
+document.getElementById('modalBackdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'modalBackdrop') closeModal();
+});
+
+function collectFields(keys) {
+  const data = {};
+  for (const k of keys) {
+    const el = document.getElementById('f_' + k);
+    if (el) data[k] = el.value;
+  }
+  return data;
+}
+
+function showToast(title, msg, type='success') {
+  const container = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = `<div class="toast-title">${title}</div><div class="toast-msg">${msg}</div>`;
+  container.appendChild(t);
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(100%)';
+    t.style.transition = 'all 0.3s ease';
+    setTimeout(() => t.remove(), 300);
+  }, 3000);
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return s.toString()
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+// global search
+document.getElementById('globalSearch').addEventListener('input', () => {
+  if (window.__applyFilters) window.__applyFilters();
+});
+
+// Press Enter on login
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleLogin();
+});
+
+// =================== INIT ===================
+window.addEventListener('DOMContentLoaded', () => {
+  // Check if firebase config is present + valid
+  if (window.firebaseConfig?.apiKey && !window.firebaseConfig.apiKey.includes('YOUR_')) {
+    setLoginMode('firebase');
+    initFirebase();
+  } else {
+    setLoginMode('local');
+  }
+});
+
+// Expose for global access
+window.storage = storage;
+window.state = state;
+</script>
+</body>
+</html>
